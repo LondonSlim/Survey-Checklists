@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muriwai — Survey Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f2f2f7;
+    color: #1c1c1e;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 0 40px 0;
+  }
+
+  header {
+    background: #1c1c1e;
+    color: #fff;
+    padding: 20px 20px 16px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    font-style: italic;
+  }
+  header p {
+    font-size: 13px;
+    color: #aeaeb2;
+    margin-top: 4px;
+  }
+
+  .progress-bar-wrap {
+    background: #3a3a3c;
+    border-radius: 4px;
+    height: 6px;
+    margin-top: 14px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    background: #30d158;
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 4px;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: #aeaeb2;
+    margin-top: 6px;
+  }
+
+  section {
+    margin: 16px 12px 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .section-header {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f2f2f7;
+  }
+  .section-header.rec { background: #fff3f3; color: #c0392b; }
+  .section-header.advice { background: #f0f6ff; color: #1a56db; }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f2f2f7;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:active { background: #f9f9f9; }
+
+  .checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #c7c7cc;
+    flex-shrink: 0;
+    margin-right: 14px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .checkbox svg { display: none; }
+
+  .item.done .checkbox {
+    background: #30d158;
+    border-color: #30d158;
+  }
+  .item.done .checkbox svg { display: block; }
+  .item.done .text { color: #aeaeb2; text-decoration: line-through; }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.45;
+    flex: 1;
+  }
+  .urgency {
+    font-size: 11px;
+    font-weight: 600;
+    color: #c0392b;
+    margin-top: 3px;
+  }
+  .advice-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #1a56db;
+    margin-top: 3px;
+  }
+
+  .reset-btn {
+    display: block;
+    margin: 20px auto 0;
+    background: none;
+    border: 1px solid #c7c7cc;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 14px;
+    color: #636366;
+    cursor: pointer;
+  }
+  .reset-btn:active { background: #f2f2f7; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Muriwai</h1>
+  <p>Hull Condition Survey · 17 April 2023 · Hugh Ellacott</p>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="bar"></div></div>
+  <div class="progress-label" id="prog">0 of 8 items complete</div>
+</header>
+
+<section>
+  <div class="section-header rec">Recommendations — rectify before use or within one month</div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Replace washing machine discharge hose with reinforced hose</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Replace galley sink hoses to skin fitting with reinforced hose</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Replace hand basin hoses to skin fitting with reinforced hose</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Replace weed hatch seal; remove scale, rust and old sealant from hatch and tunnel</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header advice">Advice — maintenance and preventive action</div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Black hull above and below waterline — sides, counter bottom plate and weed hatch tunnel. Repeat every 2–3 years</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Repair pits deeper than 2mm on side shell by pad welding (pits marked during survey)</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Cut access hatch in floorboards just forward of engine compartment bulkhead to monitor bilge water</div>
+    </div>
+  </div>
+
+  <div class="item" onclick="toggle(this)">
+    <div class="checkbox"><svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5.5 10L13 1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div>
+      <div class="text">Strip loose scale and coatings from engine compartment steelwork (esp. counter bottom plate), treat with rust inhibitor and repaint</div>
+    </div>
+  </div>
+</section>
+
+<button class="reset-btn" onclick="resetAll()">Reset all</button>
+
+<script>
+  const STORAGE_KEY = 'muriwai-checklist-2023';
+
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
+  }
+  function saveState(s) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {}
+  }
+
+  function toggle(el) {
+    el.classList.toggle('done');
+    persist();
+    updateProgress();
+  }
+
+  function persist() {
+    const items = document.querySelectorAll('.item');
+    const state = {};
+    items.forEach((el, i) => { state[i] = el.classList.contains('done'); });
+    saveState(state);
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.item');
+    const done = document.querySelectorAll('.item.done').length;
+    const total = items.length;
+    document.getElementById('bar').style.width = (done / total * 100) + '%';
+    document.getElementById('prog').textContent = done + ' of ' + total + ' items complete';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => el.classList.remove('done'));
+    saveState({});
+    updateProgress();
+  }
+
+  // Restore state on load
+  const state = getState();
+  const items = document.querySelectorAll('.item');
+  items.forEach((el, i) => { if (state[i]) el.classList.add('done'); });
+  updateProgress();
+</script>
+</body>
+</html>
