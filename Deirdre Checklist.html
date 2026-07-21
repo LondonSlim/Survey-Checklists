@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deirdre — Survey Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f2f2f7; color: #1c1c1e;
+    max-width: 600px; margin: 0 auto; padding: 0 0 40px 0;
+  }
+  header { background: #1c1c1e; color: #fff; padding: 20px 20px 16px; }
+  header h1 { font-size: 22px; font-weight: 700; font-style: italic; }
+  header p { font-size: 13px; color: #aeaeb2; margin-top: 4px; }
+  .progress-bar-wrap { background: #3a3a3c; border-radius: 4px; height: 6px; margin-top: 14px; overflow: hidden; }
+  .progress-bar { background: #30d158; height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 4px; }
+  .progress-label { font-size: 12px; color: #aeaeb2; margin-top: 6px; }
+  section { margin: 16px 12px 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section-header { padding: 10px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #f2f2f7; }
+  .section-header.rec { background: #fff3f3; color: #c0392b; }
+  .section-header.advice { background: #f0f6ff; color: #1a56db; }
+  .item { display: flex; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; gap: 12px; }
+  .item:last-child { border-bottom: none; }
+  .text { font-size: 15px; line-height: 1.45; flex: 1; padding-top: 2px; }
+  .item.answered-yes .text { color: #aeaeb2; }
+  .item.answered-no .text  { color: #aeaeb2; }
+  .item.answered-na .text  { color: #aeaeb2; }
+  .btns { display: flex; gap: 6px; flex-shrink: 0; flex-direction: column; justify-content: center; }
+  .btn {
+    padding: 5px 10px; border-radius: 8px; border: 1.5px solid #c7c7cc;
+    background: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: #636366; transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+    min-width: 44px; text-align: center;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn.yes.active  { background: #30d158; border-color: #30d158; color: #fff; }
+  .btn.no.active   { background: #ff3b30; border-color: #ff3b30; color: #fff; }
+  .btn.na.active   { background: #8e8e93; border-color: #8e8e93; color: #fff; }
+  .reset-btn { display: block; margin: 20px auto 0; background: none; border: 1px solid #c7c7cc; border-radius: 8px; padding: 10px 24px; font-size: 14px; color: #636366; cursor: pointer; }
+  .note { margin: 16px 12px 0; font-size: 12px; color: #8e8e93; line-height: 1.4; padding: 0 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Deirdre</h1>
+  <p>Pre-purchase &amp; plate thickness survey · 26 March 2015 · Rohan Mac Allister, Mac Allister Marine</p>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="bar"></div></div>
+  <div class="progress-label" id="prog">0 of 16 items complete</div>
+</header>
+
+<section>
+  <div class="section-header rec">Recommendations</div>
+  <div class="item" data-answer="">
+    <div class="text">Repack the rudder post.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Resecure the rudder post to the plate rudder with oversize bolts.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Replace the damaged propeller.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Change the sealant on the solid fuel stove to a high-temperature flexible sealant.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Install CO and smoke detector alarms.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Tighten the drive belt to the upper alternator and water pump.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Secure the batteries in a vented box, ideally vented to the outside atmosphere.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Fit a new starter battery — the existing one was discharged and may be damaged.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Fit an RCD in the AC circuit, if not already fitted.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Plug the unused skin fitting in the engine room.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Address the navigation light configuration — it does not conform with the International Regulations for Preventing Collisions at Sea.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header advice">Advice</div>
+  <div class="item" data-answer="">
+    <div class="text">Add a pair of magnesium anodes roughly amidships (consider aluminium/Navalloy anodes if the boat spends time in brackish or heavily polluted water).</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Consider replacing the cutlass bearing — not essential; depending on use it may last up to 5 years.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Consider changing the isolator switch to the positive cable, and fitting an isolator switch on the starting battery.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Investigate increasing airflow to the cooker burners — flames showed yellow tips, suggesting reduced airflow or excessive gas supply.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+  <div class="item" data-answer="">
+    <div class="text">Consider adding a means to shut off fuel to the engine without opening the engine space, such as a wire lanyard to the wheelhouse from a right-angle valve at the tank outlet.</div>
+    <div class="btns">
+      <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+      <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+      <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+    </div>
+  </div>
+</section>
+
+<p class="note">Compiled from Mac Allister Marine's 16-item Recommendations list, split into Recommendations/Advice by nature of item (safety &amp; structural vs. maintenance &amp; optional improvement) — the original report used a single unified list.</p>
+
+<button class="reset-btn" onclick="resetAll()">Reset all</button>
+
+<script>
+  const STORAGE_KEY = 'deirdre-checklist-2015';
+  function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; } }
+  function saveState(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {} }
+
+  function pick(btn, itemEl) {
+    const val = btn.dataset.val;
+    const current = itemEl.dataset.answer || '';
+    const next = current === val ? '' : val;
+    itemEl.dataset.answer = next;
+    itemEl.className = 'item' + (next ? ' answered-' + next : '');
+    itemEl.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === next && next !== ''));
+    persist();
+    updateProgress();
+  }
+
+  function persist() {
+    const state = {};
+    document.querySelectorAll('.item').forEach((el, i) => { state[i] = el.dataset.answer || ''; });
+    saveState(state);
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.item');
+    const done = [...items].filter(el => el.dataset.answer === 'yes').length;
+    document.getElementById('bar').style.width = (done / items.length * 100) + '%';
+    document.getElementById('prog').textContent = done + ' of ' + items.length + ' items complete';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => {
+      el.dataset.answer = '';
+      el.className = 'item';
+      el.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+    });
+    saveState({});
+    updateProgress();
+  }
+
+  function restoreState() {
+    const state = getState();
+    document.querySelectorAll('.item').forEach((el, i) => {
+      const val = state[i];
+      if (val) {
+        el.dataset.answer = val;
+        el.className = 'item answered-' + val;
+        el.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+      }
+    });
+    updateProgress();
+  }
+
+  restoreState();
+</script>
+</body>
+</html>
