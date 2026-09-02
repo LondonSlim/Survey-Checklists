@@ -39,6 +39,29 @@
   .btn.no.active   { background: #ff3b30; border-color: #ff3b30; color: #fff; }
   .btn.na.active   { background: #8e8e93; border-color: #8e8e93; color: #fff; }
   .reset-btn { display: block; margin: 20px auto 0; background: none; border: 1px solid #c7c7cc; border-radius: 8px; padding: 10px 24px; font-size: 14px; color: #636366; cursor: pointer; }
+  .actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+  .action-btn { background: none; border: 1px solid #c7c7cc; border-radius: 8px; padding: 10px 24px; font-size: 14px; color: #636366; cursor: pointer; }
+  .printed { display: none; }
+  @media print {
+    body { background: #fff; max-width: none; padding: 0; }
+    header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { box-shadow: none; border: 1px solid #d1d1d6; break-inside: auto; margin: 12px 0 0; }
+    .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .item { break-inside: avoid; }
+    .item .text { color: #1c1c1e !important; }
+    .btns, .actions { display: none !important; }
+    .item::after {
+      content: attr(data-answer); text-transform: uppercase; font-size: 12px;
+      font-weight: 700; letter-spacing: 0.04em; min-width: 46px; text-align: right;
+      flex-shrink: 0; padding-top: 3px; color: #1c1c1e;
+    }
+    .item[data-answer=""]::after { content: "—"; color: #8e8e93; }
+    .item[data-answer="yes"]::after { color: #1e7d3a; }
+    .item[data-answer="no"]::after  { color: #b3261e; }
+    .item[data-answer="na"]::after  { color: #636366; }
+    .printed { display: block; text-align: center; font-size: 11px; color: #767676; margin-top: 16px; }
+  }
+
 </style>
 </head>
 <body>
@@ -209,7 +232,11 @@
   </div>
 </section>
 
-<button class="reset-btn" onclick="resetAll()">Reset all</button>
+<div class="actions">
+  <button class="action-btn" onclick="window.print()">Save as PDF</button>
+  <button class="action-btn" onclick="resetAll()">Reset all</button>
+</div>
+<div class="printed" id="printed"></div>
 
 <script>
   const STORAGE_KEY = 'arcadia-checklist-2024';
@@ -262,6 +289,16 @@
     });
     updateProgress();
   }
+
+  function stampDate() {
+    const d = new Date();
+    document.getElementById('printed').textContent =
+      'Arcadia — checklist status as at ' +
+      d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) +
+      ', ' + d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  }
+  window.addEventListener('beforeprint', stampDate);
+  stampDate();
 
   restoreState();
 </script>
