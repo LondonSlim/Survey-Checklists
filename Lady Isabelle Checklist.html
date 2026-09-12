@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lady Isabelle — Survey Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f2f2f7; color: #1c1c1e;
+    max-width: 600px; margin: 0 auto; padding: 0 0 40px 0;
+  }
+  header { background: #1c1c1e; color: #fff; padding: 20px 20px 16px; }
+  header h1 { font-size: 22px; font-weight: 700; font-style: italic; }
+  header p { font-size: 13px; color: #aeaeb2; margin-top: 4px; }
+  .progress-bar-wrap { background: #3a3a3c; border-radius: 4px; height: 6px; margin-top: 14px; overflow: hidden; }
+  .progress-bar { background: #30d158; height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 4px; }
+  .progress-label { font-size: 12px; color: #aeaeb2; margin-top: 6px; }
+  section { margin: 16px 12px 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section-header { padding: 10px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #f2f2f7; }
+  .section-header.rec { background: #fff3f3; color: #c0392b; }
+  .section-header.advice { background: #f0f6ff; color: #1a56db; }
+  .item { display: flex; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; gap: 12px; }
+  .item:last-child { border-bottom: none; }
+  .text { font-size: 15px; line-height: 1.45; flex: 1; padding-top: 2px; }
+  .item.answered-yes .text { color: #aeaeb2; }
+  .item.answered-no .text  { color: #aeaeb2; }
+  .item.answered-na .text  { color: #aeaeb2; }
+  .btns { display: flex; gap: 6px; flex-shrink: 0; flex-direction: column; justify-content: center; }
+  .btn {
+    padding: 5px 10px; border-radius: 8px; border: 1.5px solid #c7c7cc;
+    background: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: #636366; transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+    min-width: 44px; text-align: center;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn.yes.active  { background: #30d158; border-color: #30d158; color: #fff; }
+  .btn.no.active   { background: #ff3b30; border-color: #ff3b30; color: #fff; }
+  .btn.na.active   { background: #8e8e93; border-color: #8e8e93; color: #fff; }
+  .reset-btn { display: block; margin: 20px auto 0; background: none; border: 1px solid #c7c7cc; border-radius: 8px; padding: 10px 24px; font-size: 14px; color: #636366; cursor: pointer; }
+  .footnote { text-align: center; font-size: 11px; color: #aeaeb2; margin-top: 18px; padding: 0 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Lady Isabelle</h1>
+  <p>Condition Survey &amp; Valuation &middot; 14 September 2026 &middot; Hugh Ellacott</p>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="bar"></div></div>
+  <div class="progress-label" id="prog">0 of 75 items reviewed</div>
+</header>
+
+<section>
+  <div class="section-header rec">Fastenings — agreed: none to be drawn</div>
+  <div class="item" data-answer="">
+  <div class="text">Sample accessible copper rivets (boat nails) inside vessel — scratch test and probe surrounding wood (focus: forward of stern log / damp anchor rode area, plus a dry control area)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">P-bracket: 4 SS bolts fastening bronze casting — visual check only for staining/corrosion (not drawn); pad previously split in line with bolts (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Keel bolts — not drawn; no prior survey has ever inspected them</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Report to record: areas probed, method, findings, and that fastenings/keel bolts were not drawn, with reasoning (per Kelly, 03.09.26)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Layup, support &amp; distortion</div>
+  <div class="item" data-answer="">
+  <div class="text">Sight hull for distortion, hogging or twist from prolonged support on the adapted road trailer</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Check whether trailer is chocked off the ground with stern given additional support (H2015 recommendation — unknown if done)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Note height of bottom above ground / access for inspection</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Advise whether additional propping is required</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Documentation / identity</div>
+  <div class="item" data-answer="">
+  <div class="text">Builder's plaque: H. Gibbs, Trowlock, Hampton Wick (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Thames Register Vintage Boat Club plaque No. 37 (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Dunkirk 1940 plaque and ADLS lettering on transom (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">HIN/registration recorded as "Custom" in BH2019 — confirm</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Hull below the waterline — external</div>
+  <div class="item" data-answer="">
+  <div class="text">Centreline: forefoot and keel fairness</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Forefoot/stem joint — moved but secure in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Keel scarf joint ~5ft aft of forefoot scarf — tight/secure in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Ply covering pads either side of keel aft (~3ft), assumed to cover split along stern-tube line (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Infill piece aft of keel to transom</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Galvanised steel banding on keel/forefoot</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Planking — hammer test where accessible</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Garboard seam — water seepage, loose putty noted 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Paint/antifouling below waterline — poor, thin/absent primer noted 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Zinc anode condition (renewed as at 2019) (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Thru-hull fittings (bronze ball type)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Hull above the waterline — external</div>
+  <div class="item" data-answer="">
+  <div class="text">Topsides planking, transom, Douglas Fir sheer &amp; waist rubbers</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Plank seam filler — opened slightly at bow in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Starboard repair: 3 replaced planks + 1 letting-in repair — re-check fit/condition, colour variation (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Varnish condition; fender rub marks/bruising previously noted port side (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Chrome-plated brass banding on sheer/waist rubbers — damage previously noted port side (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Oak stem and banding</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Decks — external</div>
+  <div class="item" data-answer="">
+  <div class="text">Deck planking (alternate Utile/Teak, Mahogany covering board) and caulking</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Varnish — thin, crazing at forward end of foredeck in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Coamings and screen frame (Utile)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Forward area — under foredeck</div>
+  <div class="item" data-answer="">
+  <div class="text">Hog and forward deadwood</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Steam-bent timbers — slight softness at lower ends noted 2015 where damp anchor rope/chain stowed (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Anchor/chain/rode stowage — confirm removed from bilge as recommended 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Ventilation — flagged as significant structural risk in 2015 if unaddressed; comment as agreed with Kelly</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Paint finish in bilge — dirty/failing on hog and timber ends in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Forward cockpit</div>
+  <div class="item" data-answer="">
+  <div class="text">Hog, sawn frames, steam-bent timbers, planking, engine bearers (access limited to bilge/lockers)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Bilge pump — no non-return valve, hose not properly fitted in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Battery box — poorly made plywood box, insubstantial in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Engine compartment</div>
+  <div class="item" data-answer="">
+  <div class="text">Oak engine bearers, bolted to main longitudinal bearers</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">New Nanni diesel and prop shaft (2025) — installation, mounting, alignment</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Paint finish in bilge area</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Ventilation</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Main cockpit</div>
+  <div class="item" data-answer="">
+  <div class="text">Hog, sawn frames, steam-bent timbers, planking, engine bearers</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Shaft log — replaced in two halves, welded steel straps/bolts in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Ballast arrangement in bilge</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Garboard planks — minor bare timber noted 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Under the aft deck</div>
+  <div class="item" data-answer="">
+  <div class="text">Hog, steam-bent timbers, transom knee, planking, transom, inwale, deck structure</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Ventilation — very limited (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Steering</div>
+  <div class="item" data-answer="">
+  <div class="text">Wheel / push-pull cable / tiller arrangement</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Tiller-to-rudder-stock clamp — small SS through-bolt, no keyway; poor arrangement noted 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Play in outboard and bottom rudder bearings noted 2015 — re-check (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Stern gear</div>
+  <div class="item" data-answer="">
+  <div class="text">SS shaft, stern-tube bearings (inboard/outboard)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Aquadrive coupling, thrust bearing, plummer block</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">P-bracket and its 4 SS bolts (see Fastenings)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Propeller — steel washer behind nut badly corroded in 2019 (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Rope cutter</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">SS skeg</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Fuel system</div>
+  <div class="item" data-answer="">
+  <div class="text">Steel fuel tank below foredeck (12 gal) — condition given age, venting to atmosphere</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Copper fuel lines, in-line filter, shut-off at tank</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Spark arrestor — recommended 2019 for former petrol engine; N/A to new Nanni diesel but note for record (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Electrical system</div>
+  <div class="item" data-answer="">
+  <div class="text">Confirm rewire remains sound; fuses, breakers, disconnect switches (fully rewired 2019, BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">2x G-24 batteries — battery box condition (poor/insubstantial ply box noted 2015, H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Navigation lights — none fitted in 2019; confirm current position (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Bilge pumping</div>
+  <div class="item" data-answer="">
+  <div class="text">Auto (Rule) and manual (Par) bilge pumps</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Bilge blower/engine-room venting — 2019 recommended reinstall to draw from lower 1/3 of bilge, discharge overboard (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Safety &amp; deck equipment</div>
+  <div class="item" data-answer="">
+  <div class="text">Anchor, chain and rode — confirm dry stowage away from bilge</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Fire extinguishers — 3 fitted 2019, due for annual service/tag (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">PFDs — Type IV throwable recommended 2019 (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Reboarding ladder — recommended 2019; confirm fitted (BH2019)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Covers, upholstery &amp; fit-out</div>
+  <div class="item" data-answer="">
+  <div class="text">Cockpit side linings and coamings (Utile/Teak diagonal panels)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Upholstery — dark green leatherette, good condition in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Full cover/hood — doesn't protect varnished sides/transom from sun; fading, "cover line" noted 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+<div class="item" data-answer="">
+  <div class="text">Wicker deck chairs; side tables — leatherette covering lifting in 2015 (H2015)</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<button class="reset-btn" onclick="resetAll()">Reset all</button>
+<div class="footnote">Compiled from Bunker A. Hill (2019), Henwood &amp; Dean (2015) and email correspondence with Kelly Gearhart (Trustee). Paul Homer report (2003) not used.</div>
+
+<script>
+  const STORAGE_KEY = 'lady-isabelle-checklist-2026-09-14';
+  function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; } }
+  function saveState(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {} }
+
+  function pick(btn, itemEl) {
+    const val = btn.dataset.val;
+    const current = itemEl.dataset.answer || '';
+    const next = current === val ? '' : val;
+    itemEl.dataset.answer = next;
+    itemEl.className = 'item' + (next ? ' answered-' + next : '');
+    itemEl.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === next && next !== ''));
+    persist();
+    updateProgress();
+  }
+
+  function persist() {
+    const state = {};
+    document.querySelectorAll('.item').forEach((el, i) => { state[i] = el.dataset.answer || ''; });
+    saveState(state);
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.item');
+    const done = [...items].filter(el => el.dataset.answer && el.dataset.answer !== '').length;
+    document.getElementById('bar').style.width = (done / items.length * 100) + '%';
+    document.getElementById('prog').textContent = done + ' of ' + items.length + ' items reviewed';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => {
+      el.dataset.answer = '';
+      el.className = 'item';
+      el.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+    });
+    saveState({});
+    updateProgress();
+  }
+
+  function restoreState() {
+    const state = getState();
+    document.querySelectorAll('.item').forEach((el, i) => {
+      const val = state[i];
+      if (val) {
+        el.dataset.answer = val;
+        el.className = 'item answered-' + val;
+        el.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+      }
+    });
+    updateProgress();
+  }
+
+  restoreState();
+</script>
+</body>
+</html>
