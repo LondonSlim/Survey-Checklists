@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ti-Ger Lu III — Survey Checklist</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f2f2f7; color: #1c1c1e;
+    max-width: 600px; margin: 0 auto; padding: 0 0 40px 0;
+  }
+  header { background: #1c1c1e; color: #fff; padding: 20px 20px 16px; }
+  header h1 { font-size: 22px; font-weight: 700; font-style: italic; }
+  header p { font-size: 13px; color: #aeaeb2; margin-top: 4px; }
+  .progress-bar-wrap { background: #3a3a3c; border-radius: 4px; height: 6px; margin-top: 14px; overflow: hidden; }
+  .progress-bar { background: #30d158; height: 100%; width: 0%; transition: width 0.4s ease; border-radius: 4px; }
+  .progress-label { font-size: 12px; color: #aeaeb2; margin-top: 6px; }
+  section { margin: 16px 12px 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .section-header { padding: 10px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid #f2f2f7; }
+  .section-header.rec { background: #fff3f3; color: #c0392b; }
+  .section-header.advice { background: #f0f6ff; color: #1a56db; }
+  .item { display: flex; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid #f2f2f7; gap: 12px; }
+  .item:last-child { border-bottom: none; }
+  .text { font-size: 15px; line-height: 1.45; flex: 1; padding-top: 2px; }
+  .item.answered-yes .text { color: #aeaeb2; }
+  .item.answered-no .text  { color: #aeaeb2; }
+  .item.answered-na .text  { color: #aeaeb2; }
+  .btns { display: flex; gap: 6px; flex-shrink: 0; flex-direction: column; justify-content: center; }
+  .btn {
+    padding: 5px 10px; border-radius: 8px; border: 1.5px solid #c7c7cc;
+    background: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+    color: #636366; transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+    min-width: 44px; text-align: center;
+  }
+  .btn:active { opacity: 0.7; }
+  .btn.yes.active  { background: #30d158; border-color: #30d158; color: #fff; }
+  .btn.no.active   { background: #ff3b30; border-color: #ff3b30; color: #fff; }
+  .btn.na.active   { background: #8e8e93; border-color: #8e8e93; color: #fff; }
+  .actions { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+  .reset-btn, .print-btn { background: none; border: 1px solid #c7c7cc; border-radius: 8px; padding: 10px 24px; font-size: 14px; color: #636366; cursor: pointer; }
+  .print-btn { background: #1c1c1e; border-color: #1c1c1e; color: #fff; }
+  .print-note { display: none; }
+
+  /* Print / Save as PDF — for the job file */
+  @media print {
+    @page { size: A4; margin: 15mm; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #fff; max-width: none; padding: 0; }
+    header { background: #fff; color: #000; padding: 0 0 10px; border-bottom: 2px solid #000; }
+    header p, .progress-label { color: #333; }
+    .progress-bar-wrap, .actions { display: none; }
+    section { margin: 14px 0 0; box-shadow: none; border: 1px solid #999; border-radius: 0; overflow: visible; }
+    .item { break-inside: avoid; page-break-inside: avoid; }
+    .item.answered-yes .text, .item.answered-no .text, .item.answered-na .text { color: #000; }
+    .btn:not(.active) { display: none; }
+    .btns { justify-content: flex-start; }
+    .btn { cursor: default; }
+    .item:not([class*="answered-"]) .btns::after { content: "Not reviewed"; font-size: 12px; color: #666; font-style: italic; }
+    .print-note { display: block; font-size: 11px; color: #555; margin-top: 12px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ti-Ger Lu III</h1>
+  <p>Insurance survey CHE0628 · 11 April 2022 · Hugh Ellacott</p>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="bar"></div></div>
+  <div class="progress-label" id="prog">0 of 21 items reviewed</div>
+</header>
+
+<section>
+  <div class="section-header rec">Recommendations</div>
+  <div class="item" data-answer="">
+  <div class="text">Repair to port topside plank where there is a pocket of decay adjacent to skin fitting at forward end of cockpit.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Treat and harden soft inner planking beneath port wheelhouse door.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Treat and harden soft planking aft of heads and galley doors.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Treat with fungicide and harden soft stringers and timbers beneath port and starboard wheelhouse doors.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Through bolt aft feet of struts supporting external windscreen to handrails.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Make good connection between upper section of rudderstock and coupling.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Refit depth transducer.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Secure raw water intake hose to gate valve with two stainless steel hose clamps (providing there is sufficient room on the hose tail).</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Remove stainless steel carabiner from main anchor rode.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Replace 1998 fire extinguisher with one of similar capacity.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Free seized valve beneath starboard fuel tank.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<section>
+  <div class="section-header advice">Advice</div>
+  <div class="item" data-answer="">
+  <div class="text">Apply soft sealant to tingles at forefoot where screwheads were missing.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Fill unstopped nail holes in planking with compound of choice.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Recaulk decks.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Repair cabin sides as necessary.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Treat timber on port side of saloon with fungicide.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Replace hose clamps retaining hose between stern tube and stern gland with stainless steel hose clamps.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Fit wooden chocks to foredeck to retain main anchor.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Carry bucket when navigating Thames Estuary or other coastal waters.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Replace breakers specified for AC circuits with overcurrent protection specified for DC circuits.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+  <div class="item" data-answer="">
+  <div class="text">Permanently connect inverter to battery, ensuring an inline fuse is installed in cable.</div>
+  <div class="btns">
+    <button class="btn yes" data-val="yes" onclick="pick(this, this.closest('.item'))">Yes</button>
+    <button class="btn no" data-val="no" onclick="pick(this, this.closest('.item'))">No</button>
+    <button class="btn na" data-val="na" onclick="pick(this, this.closest('.item'))">N/A</button>
+  </div>
+</div>
+</section>
+
+<div class="print-note" id="printNote"></div>
+
+<div class="actions">
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+  <button class="reset-btn" onclick="resetAll()">Reset all</button>
+</div>
+
+<script>
+  const STORAGE_KEY = 'ti-ger-lu-iii-checklist-2022';
+  function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; } }
+  function saveState(s) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch(e) {} }
+
+  function pick(btn, itemEl) {
+    const val = btn.dataset.val;
+    const current = itemEl.dataset.answer || '';
+    const next = current === val ? '' : val;
+    itemEl.dataset.answer = next;
+    itemEl.className = 'item' + (next ? ' answered-' + next : '');
+    itemEl.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === next && next !== ''));
+    persist();
+    updateProgress();
+  }
+
+  function persist() {
+    const state = {};
+    document.querySelectorAll('.item').forEach((el, i) => { state[i] = el.dataset.answer || ''; });
+    saveState(state);
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.item');
+    // Counts items with ANY answer (yes/no/na) — this tracks how much of the
+    // list has been checked, not how many items came back "yes".
+    const done = [...items].filter(el => el.dataset.answer && el.dataset.answer !== '').length;
+    document.getElementById('bar').style.width = (done / items.length * 100) + '%';
+    document.getElementById('prog').textContent = done + ' of ' + items.length + ' items reviewed';
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.item').forEach(el => {
+      el.dataset.answer = '';
+      el.className = 'item';
+      el.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+    });
+    saveState({});
+    updateProgress();
+  }
+
+  function restoreState() {
+    const state = getState();
+    document.querySelectorAll('.item').forEach((el, i) => {
+      const val = state[i];
+      if (val) {
+        el.dataset.answer = val;
+        el.className = 'item answered-' + val;
+        el.querySelectorAll('.btn').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+      }
+    });
+    updateProgress();
+  }
+
+  restoreState();
+
+  // Stamp the print date on the printed/PDF copy
+  window.addEventListener('beforeprint', () => {
+    document.getElementById('printNote').textContent =
+      'Printed ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) +
+      ' — ' + document.getElementById('prog').textContent;
+  });
+</script>
+</body>
+</html>
